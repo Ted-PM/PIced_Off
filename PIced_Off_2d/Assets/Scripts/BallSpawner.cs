@@ -52,7 +52,14 @@ public class BallSpawner : MonoBehaviour
             SelectBall();
         }
 
-        //Camera.main.fieldOfView = 90*((GetNumBalls()-1)/ GetNumBalls());
+        ChangeCamFOV();
+        ballList[ballList.Count-1].GetComponent<BallControler>().SetHead();
+
+        //while (Camera.main.fieldOfView!= 50 + (GetNumBalls() * 10))
+        //{
+        //    Camera.main.fieldOfView++;
+        //}
+        //Camera.main.fieldOfView = 50 + (GetNumBalls() * 10);
         //myCam.fieldOfView = GetNumBalls() * 60f;
     }
 
@@ -63,6 +70,20 @@ public class BallSpawner : MonoBehaviour
         SpawnBall();
         SelectBottom();
         ballList[2].GetComponent<BallControler>().SetHead();
+    }
+
+    void ChangeCamFOV()
+    {
+        if (Camera.main.fieldOfView < (50 + (GetNumBalls() * 10)))      // if more balls added do
+        {
+            Camera.main.fieldOfView++;                      // increase FOV
+            Camera.main.transform.Translate(0.2f, 0, 0);        // move cam so not see behind
+        }
+        else if (Camera.main.fieldOfView > (50 + (GetNumBalls() * 10)))
+        {
+            Camera.main.fieldOfView--;
+            Camera.main.transform.Translate(-0.2f, 0, 0);
+        }
     }
 
     //public void CanSelect()
@@ -160,6 +181,37 @@ public class BallSpawner : MonoBehaviour
     public void SpawnBall()
     {
         //height = new Vector2(1, instatiateHeight);
+        //if (ballList.Count > 0)
+        //{
+
+        //    if (!ballList[0].GetComponent<BallControler>().CheckCanJump())
+        //    {
+        //        Debug.Log(ballList[0].GetComponent<BallControler>().CheckCanJump());
+        //        SpawnBall();
+        //    }
+        //    else
+        //    {
+        //        GameObject newBall = Instantiate(ballPrefab);
+        //        //newBall.GetComponent<BallControler>().SetHead();
+        //        if (ballList.Count > 0)
+        //        {
+        //            ballList[ballList.Count - 1].GetComponent<BallControler>().RemoveHead();
+        //        }
+        //        //newBall.tag = tracker.ToString();
+        //        ballList.Add(newBall);                          // adds to start, then "higher" balls are after (Lowest->highest in list)
+        //        ballList[ballList.Count - 1].GetComponent<BallControler>().SetHead();
+        //        //ballList.Add(Instantiate(ballPrefab));
+
+        //        //tracker++;
+
+        //        newBall.transform.position = new Vector2(transform.position.x, instatiateHeight);   // instantiate height derived by num prev balls made / died
+
+        //        MoveHeightUp();
+        //    }
+        //}
+        //else
+        //{
+
         GameObject newBall = Instantiate(ballPrefab);
         //newBall.GetComponent<BallControler>().SetHead();
         if (ballList.Count > 0)
@@ -173,9 +225,19 @@ public class BallSpawner : MonoBehaviour
 
         //tracker++;
 
-        newBall.transform.position = new Vector2(transform.position.x, instatiateHeight);   // instantiate height derived by num prev balls made / died
-        
+        //newBall.transform.position = new Vector2(transform.position.x, instatiateHeight);   // instantiate height derived by num prev balls made / died
+        if (ballList.Count > 1)
+        {
+            newBall.transform.position = new Vector2(transform.position.x, (ballList[ballList.Count - 2].GetComponent<BallControler>().transform.position.y + 1));   //Incase the top ball is jumping, create above that one
+        }
+        else
+        {
+            newBall.transform.position = new Vector2(transform.position.x, instatiateHeight);   // instantiate height derived by num prev balls made / died
+
+        }
+
         MoveHeightUp();
+        //}
     }
 
     public int NumBallsAbove(BallControler selectedBall)        // find number of balls above one selected (to change how much force will need to move self and others)

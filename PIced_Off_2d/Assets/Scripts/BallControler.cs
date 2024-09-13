@@ -110,6 +110,8 @@ public class BallControler : MonoBehaviour
         }
     }
 
+    public bool CheckCanJump() { return canJump; }
+
     public void SetHead()
     {
         isHead = true;

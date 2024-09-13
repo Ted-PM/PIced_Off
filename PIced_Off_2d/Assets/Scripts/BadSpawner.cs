@@ -17,6 +17,7 @@ public class BadSpawner : MonoBehaviour
 
     Vector2 height;     // hol
     float spawnHeight;
+    float spawnDistance;
     int numBalls;
 
     //bool spawnHeight = true;
@@ -27,7 +28,7 @@ public class BadSpawner : MonoBehaviour
     }
     void Start()
     {
-        SpawnBad();
+        //SpawnBad();
         //height = new Vector2(1, yHeight);       // x = 1 because *= later
     }
 
@@ -56,6 +57,11 @@ public class BadSpawner : MonoBehaviour
         Debug.Log("Num balls = " + numBalls);
 
         spawnHeight = Random.Range(0, (numBalls + 1));        //---------
+
+        //float camRightEdge = Camera.main.WorldToViewportPoint()
+        //Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        spawnDistance = 10 * numBalls;
+        //spawnDistance = Camera.main.pixelWidth;
         //spawnHeight = numBalls - 1;     // temp to spawn at head
 
         //if (numBalls > 1)
@@ -78,7 +84,7 @@ public class BadSpawner : MonoBehaviour
         //Debug.Log("spawnHeight = "+ spawnHeight);
 
 
-        height = new Vector2(1, spawnHeight);
+        height = new Vector2(spawnDistance, spawnHeight);
 
         //newBad.transform.position = height;
 
