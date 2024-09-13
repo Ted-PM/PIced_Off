@@ -7,6 +7,7 @@ public class BallSpawner : MonoBehaviour
 {
     public static BallSpawner Instance;
     public GameObject ballPrefab;
+    //public Camera myCam;
 
     public List <GameObject> ballList;          // keep list of ball prefabs instantiated
     //List<GameObject> tempList;
@@ -32,15 +33,16 @@ public class BallSpawner : MonoBehaviour
         ballList = new List <GameObject>();
         //tempList = new List<GameObject>();
         //tracker = 0;
-        
-        SpawnBall();
-        SpawnBall();
-        SpawnBall();
+
         //SpawnBall();
         //SpawnBall();
-        //ballSelector = 0;
-        //SelectBall();
-        SelectBottom();
+        //SpawnBall();
+        ////SpawnBall();
+        ////SpawnBall();
+        ////ballSelector = 0;
+        ////SelectBall();
+        //SelectBottom();
+        spawnStart();
     }
 
     void Update()
@@ -49,6 +51,18 @@ public class BallSpawner : MonoBehaviour
         {
             SelectBall();
         }
+
+        //Camera.main.fieldOfView = 90*((GetNumBalls()-1)/ GetNumBalls());
+        //myCam.fieldOfView = GetNumBalls() * 60f;
+    }
+
+    void spawnStart()
+    {
+        SpawnBall();
+        SpawnBall();
+        SpawnBall();
+        SelectBottom();
+        ballList[2].GetComponent<BallControler>().SetHead();
     }
 
     //public void CanSelect()
@@ -147,14 +161,20 @@ public class BallSpawner : MonoBehaviour
     {
         //height = new Vector2(1, instatiateHeight);
         GameObject newBall = Instantiate(ballPrefab);
+        //newBall.GetComponent<BallControler>().SetHead();
+        if (ballList.Count > 0)
+        {
+            ballList[ballList.Count - 1].GetComponent<BallControler>().RemoveHead();
+        }
         //newBall.tag = tracker.ToString();
         ballList.Add(newBall);                          // adds to start, then "higher" balls are after (Lowest->highest in list)
-
+        ballList[ballList.Count - 1].GetComponent<BallControler>().SetHead();
         //ballList.Add(Instantiate(ballPrefab));
 
         //tracker++;
 
         newBall.transform.position = new Vector2(transform.position.x, instatiateHeight);   // instantiate height derived by num prev balls made / died
+        
         MoveHeightUp();
     }
 
@@ -270,6 +290,20 @@ public class BallSpawner : MonoBehaviour
         //ballSelector = 0;
         //DeselectAllBall();
         SelectBottom();
+
+    }
+
+    public void LoseAll()
+    {
+        if (ballList.Count > 0)
+        {
+            for (int i = (ballList.Count - 1); i >= 0; i--)        // go through list
+            {
+                ballList[i].GetComponent<BallControler>().DeSelect();
+                ballList[i].GetComponent<Rigidbody2D>().constraints = 0;        // change locked x axis to not locked
+                ballList[i].GetComponent<BallControler>().ThrowBall((i + 1) * 200);     // call throw ball (higher ball = heigher i, so throw further)
+            }
+        }
 
     }
 

@@ -13,7 +13,9 @@ public class BallControler : MonoBehaviour
     //public BulletTemp bulletBody2D;
     //int ballPos;        // relative position in tower of balls
 
-    int numberOfPrefabs; 
+    int numberOfPrefabs;
+
+    bool isHead = false;
 
     //public bool isSelected;
 
@@ -32,7 +34,11 @@ public class BallControler : MonoBehaviour
 
         //if (canJump) { Debug.Log("canJumpRN"); }
 
-        if (isSelected)
+        if (isHead)
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.green;
+        }
+        else if (isSelected)
         {
             gameObject.GetComponent<Renderer>().material.color = Color.red;
         }
@@ -90,8 +96,39 @@ public class BallControler : MonoBehaviour
         //BallSpawner.MoveHeightDown();
         //BallSpawner.Instance.MoveHeightDown();      // spawn new ball lower
         //BallSpawner.Instance.CanSelect();
+        
+
         Destroy(gameObject);                            // destroy self
         BallSpawner.Instance.MoveHeightDown();      // spawn new ball lower
         Debug.Log("lose");
+
+        if (isHead)
+        {
+            Debug.Log("is head lose all called START");
+            BallSpawner.Instance.LoseAll();
+            Debug.Log("is head lose all called END");
+        }
+    }
+
+    public void SetHead()
+    {
+        isHead = true;
+        //Debug.Log("head set");
+    }
+
+    public void RemoveHead()
+    {
+        isHead = false;
+        //Debug.Log("head set");
+    }
+
+    public bool IsHead() { return isHead; }
+
+    public void ThrowBall(int speed)
+    {
+        rigidBody2D.AddForce(Vector2.right * speed);
+
+        //BallSpawner.Instance.ballList.Remove(gameObject);
+        //Destroy(gameObject);
     }
 }

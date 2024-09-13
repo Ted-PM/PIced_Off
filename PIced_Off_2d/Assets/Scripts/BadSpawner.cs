@@ -55,7 +55,8 @@ public class BadSpawner : MonoBehaviour
         numBalls = BallSpawner.Instance.GetNumBalls();      // get number of balls in play
         Debug.Log("Num balls = " + numBalls);
 
-        spawnHeight = Random.Range(0, (numBalls + 1));
+        spawnHeight = Random.Range(0, (numBalls + 1));        //---------
+        //spawnHeight = numBalls - 1;     // temp to spawn at head
 
         //if (numBalls > 1)
         //{
