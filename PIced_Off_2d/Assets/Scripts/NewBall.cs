@@ -13,7 +13,7 @@ public class NewBall : MonoBehaviour
     public float currentTime;
 
     Vector2 distance;                       // because cam change
-    public Transform camLocation;
+    public Transform camLocation;           // where cam is
 
     public GameObject fakeBallPrefab;
 
@@ -31,11 +31,11 @@ public class NewBall : MonoBehaviour
 
     void RollBall()
     {
-        GameObject newFakeBall = Instantiate(fakeBallPrefab);
+        GameObject newFakeBall = Instantiate(fakeBallPrefab);       // make fake ball
 
-        distance = new Vector2 (camLocation.position.x, camLocation.position.y);
+        distance = new Vector2 (camLocation.position.x, camLocation.position.y);        // find location right outside main cam view
 
-        newFakeBall.transform.position = newFakeBall.transform.position * distance;
+        newFakeBall.transform.position = newFakeBall.transform.position * distance;     // move ball there before starts rolling self, also cuz initial y pos is 0, multiply 
     }
     void Update()
     {
@@ -46,7 +46,7 @@ public class NewBall : MonoBehaviour
             RollBall();
             secondsPassed = 0;
 
-            timePerSpawn = Random.Range(10, 15);
+            timePerSpawn = Random.Range(10, 15);        // how long between new fake ball
         }
 
         secondsPassed += Time.deltaTime;

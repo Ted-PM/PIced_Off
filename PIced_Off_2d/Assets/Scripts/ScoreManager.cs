@@ -8,7 +8,7 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance;
     int score = 0;
     public TextMeshProUGUI scoreText;
-    //public TextMeshProUGUI highScore;
+    //public TextMeshProUGUI highScore;         // haven't done yet (may have been yoinked from quail flayl)
     void Awake()
     {
         Instance = this;
@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour
 
     public void AddPoint()
     {
-        score+= BallSpawner.Instance.GetNumBalls();
+        score+= BallSpawner.Instance.GetNumBalls();     // add number of balls currently in play (multiplier ish)
         //score++;
         scoreText.SetText(score.ToString());
         //if (score > PlayerPrefs.GetInt("HighScore"))

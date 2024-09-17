@@ -16,6 +16,23 @@ public class FakeBall : MonoBehaviour
     void Update()
     {
         rigidBody2D.velocity = Vector2.left * fakeBallVelocity;
+
+        if (GameManager.Instance.MenuIsActive() == true)        // if head destroyed
+        {
+            RemoveCollider();       // remove own collider so don't mess up game by adding new ball
+        }
+
+    }
+
+    void RemoveCollider()
+    {
+        gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY; // freeze y positon (no collider = fall through ground)
+        CircleCollider2D collider = gameObject.GetComponent<CircleCollider2D>(); // get own collider
+
+        if (collider != null)       // cuz being called in update, check if collider already removed
+        {
+            Destroy(collider);      // if not removed, destroy it
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)  // make sure ball touching ground before can jump

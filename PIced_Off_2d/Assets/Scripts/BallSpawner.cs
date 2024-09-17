@@ -32,18 +32,24 @@ public class BallSpawner : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            SelectBallUp();
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            SelectBallDown();
-        }
+        
 
-        ChangeCamFOV();
-        ballList[ballList.Count-1].GetComponent<BallControler>().SetHead();
-        ReSizeBalls();
+        if ((ballList.Count - 1) > 0 && (ballList[ballList.Count - 1].GetComponent<BallControler>().IsHead()))
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                SelectBallUp();
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                SelectBallDown();
+            }
+
+            ChangeCamFOV();
+
+            ballList[ballList.Count - 1].GetComponent<BallControler>().SetHead();
+            ReSizeBalls();
+        }
     }
 
     void ReSizeBalls()
@@ -70,7 +76,6 @@ public class BallSpawner : MonoBehaviour
         SpawnBall();
         SelectBottom();
         ballList[2].GetComponent<BallControler>().SetHead();
-        //ReSizeBalls();
     }
 
     void ChangeCamFOV()
@@ -79,13 +84,11 @@ public class BallSpawner : MonoBehaviour
         {
             Camera.main.fieldOfView++;                      // increase FOV
             Camera.main.transform.Translate(0.3f, 0, 0);        // move cam so not see behind
-            //ReSizeBalls();
         }
         else if (Camera.main.fieldOfView > (30 + (GetNumBalls() * 10)))
         {
             Camera.main.fieldOfView--;
             Camera.main.transform.Translate(-0.3f, 0, 0);
-            //ReSizeBalls();
         }
     }
 
@@ -227,22 +230,32 @@ public class BallSpawner : MonoBehaviour
         //Debug.Log("MoveHD new num = " + ballList.Count);
 
         SelectBottom();
-        //ReSizeBalls();
     }
 
     public void LoseAll()
     {
         if (ballList.Count > 0)
         {
+            Debug.Log("start lose all");
+
             for (int i = (ballList.Count - 1); i >= 0; i--)        // go through list
             {
                 ballList[i].GetComponent<BallControler>().DeSelect();
                 ballList[i].GetComponent<Rigidbody2D>().constraints = 0;        // change locked x axis to not locked
-                ballList[i].GetComponent<BallControler>().ThrowBall((i + 1) * 200);     // call throw ball (higher ball = heigher i, so throw further)
+                ballList[i].GetComponent<BallControler>().ThrowBall((i + 1) * 500);     // call throw ball (higher ball = heigher i, so throw further)
             }
         }
+        Debug.Log("finish lose all");
 
+        StartCoroutine(DelayGameOver());
     }
 
+    private IEnumerator DelayGameOver()     // wait 3 seconds before call game over (balls wait 2 s before destroy self)
+    {
+        yield return new WaitForSeconds(3);
 
+        GameManager.Instance.GameOver();
+    }
 }
+
+

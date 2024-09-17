@@ -94,9 +94,7 @@ public class BallControler : MonoBehaviour
 
         if (isHead)
         {
-            Debug.Log("is head lose all called START");
             BallSpawner.Instance.LoseAll();
-            Debug.Log("is head lose all called END");
         }
     }
 
@@ -116,8 +114,30 @@ public class BallControler : MonoBehaviour
 
     public bool IsHead() { return isHead; }
 
-    public void ThrowBall(int speed)
+    public void ThrowBall(int speed)                // called if head destroyed
     {
-        rigidBody2D.AddForce(Vector2.right * speed);
+        //RemoveCollider();                                 // looks dubious tbf
+        rigidBody2D.AddForce(Vector2.right * speed);            // move ball
+        StartCoroutine(DelayThenDestroy());     // call coroutine to kill self
+    }   
+
+    private void RemoveCollider()       // not used rn tbh, but kinda interensting (used in fake ball)
+    {
+        gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+        CircleCollider2D collider = gameObject.GetComponent<CircleCollider2D>();
+
+        if (collider != null)
+        {
+            Destroy(collider);
+        }
+    }
+
+    private IEnumerator DelayThenDestroy()
+    {
+        yield return new WaitForSeconds(2);             // wait 2 sec
+
+        BallSpawner.Instance.ballList.Remove(gameObject);       // remove self from ball spawner list (this 1 line replaced a fkin paragraph in "MoveHeightDown()"
+
+        Destroy(gameObject);            // destroy self
     }
 }

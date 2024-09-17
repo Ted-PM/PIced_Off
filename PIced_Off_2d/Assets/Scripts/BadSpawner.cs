@@ -45,9 +45,10 @@ public class BadSpawner : MonoBehaviour
         numBalls = BallSpawner.Instance.GetNumBalls();      // get number of balls in play
         Debug.Log("Num balls = " + numBalls);
 
-        spawnHeight = Random.Range(0, (numBalls + 1));        //-------
-        
-        height = new Vector2(camLocation.position.x, spawnHeight);
+        spawnHeight = Random.Range(0, (numBalls + 1));        //-------     how high ball will spawn
+        //spawnHeight = 2;
+
+        height = new Vector2(camLocation.position.x, spawnHeight);          // has cam location (right outside cam fov) for x position
 
         newBad.transform.position = newBad.transform.position * height;         // move bullet up / down
 

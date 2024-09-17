@@ -6,9 +6,9 @@ public class AddScore : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<BulletTemp>())
+        if (collision.gameObject.GetComponent<BulletTemp>())        // check that obj hit was bullet
         {
-            ScoreManager.Instance.AddPoint();
+            ScoreManager.Instance.AddPoint();       // call add point
         }
     }
 }

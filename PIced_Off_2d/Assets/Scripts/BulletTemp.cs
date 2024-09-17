@@ -17,12 +17,12 @@ public class BulletTemp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bulletVelocity < 10)
+        if (bulletVelocity < 10 || GameManager.Instance.MenuIsActive() == true) // if at start of round, or if player died
         {
             bulletVelocity = 10;
         }
 
-        rigidBody2D.velocity = Vector2.left * bulletVelocity;// * (BadSpawner.Instance.currentTime/10);
+        rigidBody2D.velocity = Vector2.left * bulletVelocity;   // 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
