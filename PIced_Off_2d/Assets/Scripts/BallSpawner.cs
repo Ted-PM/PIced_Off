@@ -75,13 +75,13 @@ public class BallSpawner : MonoBehaviour
 
     void ChangeCamFOV()
     {
-        if (Camera.main.fieldOfView < (50 + (GetNumBalls() * 10)))      // if more balls added do
+        if (Camera.main.fieldOfView < (30 + (GetNumBalls() * 10)))      // if more balls added do
         {
             Camera.main.fieldOfView++;                      // increase FOV
             Camera.main.transform.Translate(0.3f, 0, 0);        // move cam so not see behind
             //ReSizeBalls();
         }
-        else if (Camera.main.fieldOfView > (50 + (GetNumBalls() * 10)))
+        else if (Camera.main.fieldOfView > (30 + (GetNumBalls() * 10)))
         {
             Camera.main.fieldOfView--;
             Camera.main.transform.Translate(-0.3f, 0, 0);
