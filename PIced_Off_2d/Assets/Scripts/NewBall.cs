@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class NewBall : MonoBehaviour
 {
@@ -9,8 +11,9 @@ public class NewBall : MonoBehaviour
     float secondsPassed;
     public float timePerSpawn;
     public float currentTime;
-    float spawnDistance;
-    Vector2 distance;
+
+    Vector2 distance;                       // because cam change
+    public Transform camLocation;
 
     public GameObject fakeBallPrefab;
 
@@ -21,7 +24,6 @@ public class NewBall : MonoBehaviour
         Instance = this;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         timePerSpawn = Random.Range(10, 15);
@@ -30,13 +32,11 @@ public class NewBall : MonoBehaviour
     void RollBall()
     {
         GameObject newFakeBall = Instantiate(fakeBallPrefab);
-        numBalls = BallSpawner.Instance.GetNumBalls();
-        spawnDistance = 10 * numBalls;
-        distance = new Vector2(spawnDistance, 1);
+
+        distance = new Vector2 (camLocation.position.x, camLocation.position.y);
 
         newFakeBall.transform.position = newFakeBall.transform.position * distance;
     }
-    // Update is called once per frame
     void Update()
     {
         if (secondsPassed >= timePerSpawn)

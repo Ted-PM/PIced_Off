@@ -7,20 +7,12 @@ public class BallSpawner : MonoBehaviour
 {
     public static BallSpawner Instance;
     public GameObject ballPrefab;
-    //public Camera myCam;
 
     public List <GameObject> ballList;          // keep list of ball prefabs instantiated
-    //List<GameObject> tempList;
 
     float instatiateHeight;
 
-    //Vector2 height;
-
-    //int tracker;
-
     int ballSelector;               // which ball chosen by player
-
-    //bool canSelect = true;
 
     private void Awake()
     {
@@ -29,38 +21,25 @@ public class BallSpawner : MonoBehaviour
     void Start()
     {
         instatiateHeight = 0;                   // how high ball will be spawned, increase on each spawn / decrease if destroyed
-        //ballList = new GameObject[5];
         ballList = new List <GameObject>();
-        //tempList = new List<GameObject>();
-        //tracker = 0;
-
-        //SpawnBall();
-        //SpawnBall();
-        //SpawnBall();
-        ////SpawnBall();
-        ////SpawnBall();
-        ////ballSelector = 0;
-        ////SelectBall();
-        //SelectBottom();
         spawnStart();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))// && canSelect)
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            SelectBall();
+            SelectBallUp();
         }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            SelectBallDown();
+        }
+
+
 
         ChangeCamFOV();
         ballList[ballList.Count-1].GetComponent<BallControler>().SetHead();
-
-        //while (Camera.main.fieldOfView!= 50 + (GetNumBalls() * 10))
-        //{
-        //    Camera.main.fieldOfView++;
-        //}
-        //Camera.main.fieldOfView = 50 + (GetNumBalls() * 10);
-        //myCam.fieldOfView = GetNumBalls() * 60f;
     }
 
     void spawnStart()
@@ -74,94 +53,55 @@ public class BallSpawner : MonoBehaviour
 
     void ChangeCamFOV()
     {
-        if (Camera.main.fieldOfView < (50 + (GetNumBalls() * 10)))      // if more balls added do
+        if (Camera.main.fieldOfView < (30 + (GetNumBalls() * 10)))      // if more balls added do
         {
             Camera.main.fieldOfView++;                      // increase FOV
-            Camera.main.transform.Translate(0.2f, 0, 0);        // move cam so not see behind
+            Camera.main.transform.Translate(0.3f, 0, 0);        // move cam so not see behind
         }
-        else if (Camera.main.fieldOfView > (50 + (GetNumBalls() * 10)))
+        else if (Camera.main.fieldOfView > (30 + (GetNumBalls() * 10)))
         {
             Camera.main.fieldOfView--;
-            Camera.main.transform.Translate(-0.2f, 0, 0);
+            Camera.main.transform.Translate(-0.3f, 0, 0);
         }
     }
 
-    //public void CanSelect()
-    //{
-    //    if (!canSelect) { canSelect = true; }
-    //}
-    //public void CannotSelect()
-    //{
-    //    if (canSelect) { canSelect = false; }
-    //}
-
     void SelectBottom()
     {
-        
         ballSelector = 0;
 
-        DeselectAllBall();
-
-        
+        DeselectAllBall();    
 
         ballList[0].GetComponent<BallControler>().Select();
 
-        //if (ballList[0] != null)
-        //{
-        //    //ballList[0].GetComponent<BallControler>().DeSelect();
-        //    //ballList[0].GetComponent<BallControler>().Select();
-
-        //    //for (int i = 0; i < ballList.Length; i++)
-        //    //{
-        //    //    if(ballList[i] != null)
-        //    //    {
-        //    //ballList[ballSelector].GetComponent<BallControler>().Select();
-        //    //    }
-
-        //    //}
-        //}
-
         //Debug.Log("selected bottom");
+    }
+
+    void SelectTop()
+    {
+        ballSelector = ballList.Count - 1;
+
+        DeselectAllBall();
+
+        ballList[ballList.Count - 1].GetComponent<BallControler>().Select();
     }
 
     void DeselectAllBall()
     {
         for(int i = 0; i < ballList.Count -1; i++)
         {
-
             ballList[i].GetComponent<BallControler>().DeSelect();
-
-            //if (ballList[i] != null)
-            //{
-            //    ballList[i].GetComponent<BallControler>().DeSelect();
-            //}
         }
-
-        //if (ballList.Count == 1)
-        //{
-        //    ballList[0].GetComponent<BallControler>().DeSelect();
-        //    ballList[1].GetComponent<BallControler>().DeSelect();
-        //}
-
-        //ballSelector = 0;
 
         //Debug.Log("deselect all");
     }
 
-    void SelectBall()
+    void SelectBallUp()
     {
-        //canSelect = false;
         //Debug.Log("selectBall " + ballSelector);
 
-        //if (ballList.Count == 1)
-        //{
-        //    Debug.Log("only 1 ball");
-        //    ballList[0].GetComponent<BallControler>().Select();
-        //}
-        if (ballSelector == ballList.Count-1)       // if last in list, deselect and go bottom
+        if (ballSelector == ballList.Count - 1)       // if last in list, deselect and go bottom
         {
             ballList[ballSelector].GetComponent<BallControler>().DeSelect();
-            //DeselectAllBall();
             SelectBottom();
         }
         else
@@ -170,62 +110,43 @@ public class BallSpawner : MonoBehaviour
             ballList[ballSelector].GetComponent<BallControler>().DeSelect();        // not last in list deselect and select next
             ballSelector++;
             ballList[ballSelector].GetComponent<BallControler>().Select();
-        }
-         
+        } 
 
         //Debug.Log("Ball selected " + ballSelector);
-        
-        //canSelect = true;
+    }
+
+    void SelectBallDown()
+    {
+        //Debug.Log("selectBall " + ballSelector);
+
+        if (ballSelector == 0)       // if last in list, deselect and go bottom
+        {
+            ballList[ballSelector].GetComponent<BallControler>().DeSelect();
+            SelectTop();
+        }
+        else
+        {
+            //Debug.Log("moveSelectionUp");
+            ballList[ballSelector].GetComponent<BallControler>().DeSelect();        // not last in list deselect and select next
+            ballSelector--;
+            ballList[ballSelector].GetComponent<BallControler>().Select();
+        }
+
+        //Debug.Log("Ball selected " + ballSelector);
     }
 
     public void SpawnBall()
     {
-        //height = new Vector2(1, instatiateHeight);
-        //if (ballList.Count > 0)
-        //{
-
-        //    if (!ballList[0].GetComponent<BallControler>().CheckCanJump())
-        //    {
-        //        Debug.Log(ballList[0].GetComponent<BallControler>().CheckCanJump());
-        //        SpawnBall();
-        //    }
-        //    else
-        //    {
-        //        GameObject newBall = Instantiate(ballPrefab);
-        //        //newBall.GetComponent<BallControler>().SetHead();
-        //        if (ballList.Count > 0)
-        //        {
-        //            ballList[ballList.Count - 1].GetComponent<BallControler>().RemoveHead();
-        //        }
-        //        //newBall.tag = tracker.ToString();
-        //        ballList.Add(newBall);                          // adds to start, then "higher" balls are after (Lowest->highest in list)
-        //        ballList[ballList.Count - 1].GetComponent<BallControler>().SetHead();
-        //        //ballList.Add(Instantiate(ballPrefab));
-
-        //        //tracker++;
-
-        //        newBall.transform.position = new Vector2(transform.position.x, instatiateHeight);   // instantiate height derived by num prev balls made / died
-
-        //        MoveHeightUp();
-        //    }
-        //}
-        //else
-        //{
-
         GameObject newBall = Instantiate(ballPrefab);
-        //newBall.GetComponent<BallControler>().SetHead();
+
         if (ballList.Count > 0)
         {
             ballList[ballList.Count - 1].GetComponent<BallControler>().RemoveHead();
         }
-        //newBall.tag = tracker.ToString();
+
         ballList.Add(newBall);                          // adds to start, then "higher" balls are after (Lowest->highest in list)
         ballList[ballList.Count - 1].GetComponent<BallControler>().SetHead();
-        //ballList.Add(Instantiate(ballPrefab));
 
-        //tracker++;
-
-        //newBall.transform.position = new Vector2(transform.position.x, instatiateHeight);   // instantiate height derived by num prev balls made / died
         if (ballList.Count > 1)
         {
             newBall.transform.position = new Vector2(transform.position.x, (ballList[ballList.Count - 2].GetComponent<BallControler>().transform.position.y + 1));   //Incase the top ball is jumping, create above that one
@@ -237,18 +158,12 @@ public class BallSpawner : MonoBehaviour
         }
 
         MoveHeightUp();
-        //}
+        
     }
 
     public int NumBallsAbove(BallControler selectedBall)        // find number of balls above one selected (to change how much force will need to move self and others)
     {
-        int amntAbove = 0;
-        //bool found = false;
-        //for (int i = 0; i < ballList.Count-1; i++)
-        //{
-        //    if(ballList[i] != null)
-        //        amntAbove++;
-        //}
+        int amntAbove = 0;    
 
         float ballH = selectedBall.transform.position.y;        // (position of lowest = 0 then 1 then 2 etc.
 
@@ -275,9 +190,7 @@ public class BallSpawner : MonoBehaviour
     }
     public void MoveHeightDown()        // ball destroyed move height down then select lowest ball
     {
-        //canSelect = false;
         instatiateHeight -= 1;
-        //bool found = false;
 
         Debug.Log("curent balls = " + ballList.Count);
 
@@ -285,72 +198,9 @@ public class BallSpawner : MonoBehaviour
         {
             ballList[ballSelector - 1].GetComponent<BallControler>().DeSelect();        // just trust this line, weird stuff happen without (case 3 balls, selected top ball and middle breaks, wierd reselection stuff) 
         }
-        //if (ballList.Count == 2)
-        //{
-        //    if (ballList[0] == null)
-        //    {
-        //        tempList.Add(ballList[1]);
-        //        ballList.RemoveAt(1);
-        //        ballList.RemoveAt(0);
-        //        ballList.Add(tempList[0]);
-        //        Debug.Log("ballList[0] = null");
-        //        //tempList.RemoveAt(0);
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("ballList[1] = null");
-        //        ballList.RemoveAt(1);
-        //    }
-        //}
-        //else
-        //{
-        //    for (int i = 0; i < ballList.Count - 1; i++)
-        //    {
-        //        if (ballList[i] != null)
-        //        {
-        //            tempList.Add(ballList[i]);
-
-        //        }
-        //        ballList.RemoveAt(i);
-
-        //        //if(ballList[i] != null && !found)
-        //        //{
-        //        //    tempList.Add(ballList[i]);
-        //        //}
-        //        //else if (ballList[i] != null && found)
-        //        //{
-        //        //    tempList.Add(ballList[i]); 
-        //        //}
-        //        //else if (ballList[i] == null && !found)
-        //        //{
-        //        //    found = true;
-        //        //}
-
-
-        //    }
-
-        //    //ballList.Clear();
-
-        //    //tempList[tempList.Length - 1] = null;
-
-        //    for (int i = 0; i < tempList.Count - 1; i++)
-        //    {
-        //        ballList.Add(tempList[i]);
-        //        tempList.RemoveAt(i);
-        //    }
-        //}
-
-        //tempList.Clear();
-
-        //tracker--;
-
-
 
         //Debug.Log("MoveHD new num = " + ballList.Count);
 
-        //canSelect = true;
-        //ballSelector = 0;
-        //DeselectAllBall();
         SelectBottom();
 
     }

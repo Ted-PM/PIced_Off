@@ -26,10 +26,6 @@ public class BallControler : MonoBehaviour
 
     void Update()
     {
-        //if (canJump) { BallSpawner.Instance.CanSelect(); }
-        //else { BallSpawner.Instance.CannotSelect(); }
-
-        //numberOfPrefabs = BallSpawner.Instance.NumBallsAbove(this);
         //if (isSelected) { Debug.Log("isselected"); }
 
         //if (canJump) { Debug.Log("canJumpRN"); }
@@ -50,8 +46,6 @@ public class BallControler : MonoBehaviour
         if (canJump && Input.GetMouseButtonDown(0) && isSelected)
         {
             //Debug.Log("selected and jumping");
-
-            //numberOfPrefabs = BallSpawner.Instance.NumBallsAbove(this);
 
             Jump();
         }
@@ -93,10 +87,6 @@ public class BallControler : MonoBehaviour
     public void Lose()
     {
         BallSpawner.Instance.ballList.Remove(gameObject);       // remove self from ball spawner list (this 1 line replaced a fkin paragraph in "MoveHeightDown()"
-        //BallSpawner.MoveHeightDown();
-        //BallSpawner.Instance.MoveHeightDown();      // spawn new ball lower
-        //BallSpawner.Instance.CanSelect();
-        
 
         Destroy(gameObject);                            // destroy self
         BallSpawner.Instance.MoveHeightDown();      // spawn new ball lower
@@ -129,8 +119,5 @@ public class BallControler : MonoBehaviour
     public void ThrowBall(int speed)
     {
         rigidBody2D.AddForce(Vector2.right * speed);
-
-        //BallSpawner.Instance.ballList.Remove(gameObject);
-        //Destroy(gameObject);
     }
 }

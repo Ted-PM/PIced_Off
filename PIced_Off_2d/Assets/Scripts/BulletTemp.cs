@@ -27,7 +27,6 @@ public class BulletTemp : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Destroy (rigidBody2D);
         //Debug.Log("triangle collision");
         Destroy(gameObject);
     }
