@@ -482,6 +482,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 1739916255303979101, guid: 62c5048a465f5484583a91acca88f486, type: 3}
   ballList: []
+  initialScale: {x: 1, y: 1, z: 1}
+  scaleFactor: 0.3
 --- !u!4 &565826085
 Transform:
   m_ObjectHideFlags: 0

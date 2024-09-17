@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BallSpawner : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class BallSpawner : MonoBehaviour
     float instatiateHeight;
 
     int ballSelector;               // which ball chosen by player
+
+    public Vector3 initialScale = new Vector3(1, 1, 1); // Default scale for new prefabs
+    public float scaleFactor = 0.3f;
 
     private void Awake()
     {
@@ -36,12 +41,28 @@ public class BallSpawner : MonoBehaviour
             SelectBallDown();
         }
 
-
-
         ChangeCamFOV();
         ballList[ballList.Count-1].GetComponent<BallControler>().SetHead();
+        ReSizeBalls();
     }
 
+    void ReSizeBalls()
+    {
+        for (int i = 0; i < (ballList.Count - 1); i++)
+        {
+            float yPosition = ballList[i].transform.position.y;             // get initial Y position of ball
+
+            float scaleValue = initialScale.x + (ballList.Count - i)*scaleFactor;                              // make new scale of x = initial scale + "relative postion" in list
+            ballList[i].transform.localScale = new Vector3(scaleValue, initialScale.y, initialScale.z);     // make local scale chage (same y / z, but new x scale val)
+            ballList[i].transform.position = new Vector3(-5, yPosition, 0);                                 // -5 = origonal position of ball, move ball to own origonal y val
+
+            CircleCollider2D collider = ballList[i].GetComponent<CircleCollider2D>();               // get circle collide (if don't do this, circle collider scale asw when prfab scale)
+            if (collider != null)
+            {
+                collider.radius = 0.5f / ballList[i].transform.localScale.x;        // origonal circle collider radius = 0.5, radius still = 0.5 after scale, but is 0.5 of new scaled obj, so divide 0.5 by new scale
+            }
+        }
+    }
     void spawnStart()
     {
         SpawnBall();
@@ -49,19 +70,22 @@ public class BallSpawner : MonoBehaviour
         SpawnBall();
         SelectBottom();
         ballList[2].GetComponent<BallControler>().SetHead();
+        //ReSizeBalls();
     }
 
     void ChangeCamFOV()
     {
-        if (Camera.main.fieldOfView < (30 + (GetNumBalls() * 10)))      // if more balls added do
+        if (Camera.main.fieldOfView < (50 + (GetNumBalls() * 10)))      // if more balls added do
         {
             Camera.main.fieldOfView++;                      // increase FOV
             Camera.main.transform.Translate(0.3f, 0, 0);        // move cam so not see behind
+            //ReSizeBalls();
         }
-        else if (Camera.main.fieldOfView > (30 + (GetNumBalls() * 10)))
+        else if (Camera.main.fieldOfView > (50 + (GetNumBalls() * 10)))
         {
             Camera.main.fieldOfView--;
             Camera.main.transform.Translate(-0.3f, 0, 0);
+            //ReSizeBalls();
         }
     }
 
@@ -158,7 +182,8 @@ public class BallSpawner : MonoBehaviour
         }
 
         MoveHeightUp();
-        
+
+        //ReSizeBalls();
     }
 
     public int NumBallsAbove(BallControler selectedBall)        // find number of balls above one selected (to change how much force will need to move self and others)
@@ -202,7 +227,7 @@ public class BallSpawner : MonoBehaviour
         //Debug.Log("MoveHD new num = " + ballList.Count);
 
         SelectBottom();
-
+        //ReSizeBalls();
     }
 
     public void LoseAll()
