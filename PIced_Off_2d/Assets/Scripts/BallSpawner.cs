@@ -45,10 +45,10 @@ public class BallSpawner : MonoBehaviour
                 SelectBallDown();
             }
 
-            ChangeCamFOV();
+            //ChangeCamFOV();
 
             ballList[ballList.Count - 1].GetComponent<BallControler>().SetHead();
-            ReSizeBalls();
+            //ReSizeBalls();
         }
     }
 
@@ -80,15 +80,21 @@ public class BallSpawner : MonoBehaviour
 
     void ChangeCamFOV()
     {
-        if (Camera.main.fieldOfView < (30 + (GetNumBalls() * 10)))      // if more balls added do
+        if (Camera.main.fieldOfView < (20 + (GetNumBalls() * 10)))      // if more balls added do
         {
-            Camera.main.fieldOfView++;                      // increase FOV
-            Camera.main.transform.Translate(0.3f, 0, 0);        // move cam so not see behind
+            while (Camera.main.fieldOfView < (20 + (GetNumBalls() * 10)))
+            {
+                Camera.main.fieldOfView++;                      // increase FOV
+                Camera.main.transform.Translate(0, 0, 0.2f);        // move cam so not see behind
+            }
         }
-        else if (Camera.main.fieldOfView > (30 + (GetNumBalls() * 10)))
+        else if (Camera.main.fieldOfView > (20 + (GetNumBalls() * 10)))
         {
-            Camera.main.fieldOfView--;
-            Camera.main.transform.Translate(-0.3f, 0, 0);
+            while (Camera.main.fieldOfView > (20 + (GetNumBalls() * 10)))
+            {
+                Camera.main.fieldOfView--;
+                Camera.main.transform.Translate(0, 0, -0.2f);
+            }
         }
     }
 
@@ -215,6 +221,8 @@ public class BallSpawner : MonoBehaviour
     void MoveHeightUp()     // when ball made, move up height for next spawn to be at
     {
         instatiateHeight += 1;
+        ChangeCamFOV();
+        ReSizeBalls();
     }
     public void MoveHeightDown()        // ball destroyed move height down then select lowest ball
     {
@@ -230,6 +238,8 @@ public class BallSpawner : MonoBehaviour
         //Debug.Log("MoveHD new num = " + ballList.Count);
 
         SelectBottom();
+        ChangeCamFOV();
+        ReSizeBalls();
     }
 
     public void LoseAll()

@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 54ca4c1aea9f02b4f899bfbd884e6a21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 6673823039704247630, guid: e24e485aecf39ef4488e2312cf7af030, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,6 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpVelocity: 13
+  headSprite: {fileID: 3238564461173103932, guid: 1ec69f8a6d819564ea67ffef5c667001, type: 3}
+  bodySprite: {fileID: 6673823039704247630, guid: e24e485aecf39ef4488e2312cf7af030, type: 3}
 --- !u!58 &835041939877101965
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -13,6 +13,9 @@ public class BallControler : MonoBehaviour
     //public BulletTemp bulletBody2D;
     //int ballPos;        // relative position in tower of balls
 
+    public Sprite headSprite;
+    public Sprite bodySprite;
+
     int numberOfPrefabs;
 
     bool isHead = false;
@@ -22,6 +25,7 @@ public class BallControler : MonoBehaviour
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
+        //gameObject.GetComponent<SpriteRenderer>().sprite = bodySprite;
     }
 
     void Update()
@@ -30,18 +34,19 @@ public class BallControler : MonoBehaviour
 
         //if (canJump) { Debug.Log("canJumpRN"); }
 
-        if (isHead)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
-        }
-        else if (isSelected)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.red;
-        }
-        else
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.white;
-        }
+        //if (isHead)
+        //{
+        //    //gameObject.GetComponent<Renderer>().material.color = Color.green;
+        //    gameObject.GetComponent<SpriteRenderer>().sprite = headSprite;
+        //}
+        //else if (isSelected)
+        //{
+        //    gameObject.GetComponent<Renderer>().material.color = Color.red;
+        //}
+        //else
+        //{
+        //    gameObject.GetComponent<Renderer>().material.color = Color.white;
+        //}
 
         if (canJump && Input.GetMouseButtonDown(0) && isSelected)
         {
@@ -53,11 +58,28 @@ public class BallControler : MonoBehaviour
 
     public void Select()        // just wether or not can jump
     {
-        if (!isSelected) { isSelected = true; }
+        if (!isSelected) 
+        { 
+            isSelected = true;
+            gameObject.GetComponent<Renderer>().material.color = Color.cyan;
+            //var col = gameObject.GetComponent<Renderer>().material.color;
+            //col.a = 0.5f;
+            //gameObject.GetComponent<Renderer>().material.color = col;
+            //float trans = 0.1f;
+            //col.a = trans;
+            //gameObject.GetComponent<Renderer>().material.color.a = 0.5f;
+            //gameObject.GetComponent<Renderer>().material.color = Color.RGBToHSV(Color.red, 0, 0, 0);
+            //gameObject.GetComponent<Renderer>().material.color = Color.HSVToRGB(0, 1, 5);
+
+        }
     }
     public void DeSelect()
     {
-        if (isSelected) { isSelected = false; }
+        if (isSelected) 
+        {
+            isSelected = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.white;
+        }
     }
 
 
@@ -89,7 +111,10 @@ public class BallControler : MonoBehaviour
         BallSpawner.Instance.ballList.Remove(gameObject);       // remove self from ball spawner list (this 1 line replaced a fkin paragraph in "MoveHeightDown()"
 
         Destroy(gameObject);                            // destroy self
-        BallSpawner.Instance.MoveHeightDown();      // spawn new ball lower
+        if (!isHead)
+        {
+            BallSpawner.Instance.MoveHeightDown();      // spawn new ball lower
+        }
         Debug.Log("lose");
 
         if (isHead)
@@ -103,12 +128,15 @@ public class BallControler : MonoBehaviour
     public void SetHead()
     {
         isHead = true;
+        gameObject.GetComponent<SpriteRenderer>().sprite = headSprite;
+
         //Debug.Log("head set");
     }
 
     public void RemoveHead()
     {
         isHead = false;
+        gameObject.GetComponent<SpriteRenderer>().sprite = bodySprite;
         //Debug.Log("head set");
     }
 

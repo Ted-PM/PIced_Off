@@ -443,7 +443,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 3, z: -10}
+  m_LocalPosition: {x: 1, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -484,7 +484,7 @@ MonoBehaviour:
   ballPrefab: {fileID: 1739916255303979101, guid: 62c5048a465f5484583a91acca88f486, type: 3}
   ballList: []
   initialScale: {x: 1, y: 1, z: 1}
-  scaleFactor: 0.3
+  scaleFactor: 0.2
 --- !u!4 &565826085
 Transform:
   m_ObjectHideFlags: 0
@@ -915,7 +915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -135, y: 40}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1223289920
@@ -1165,7 +1165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -135, y: 40}
+  m_AnchoredPosition: {x: -7, y: 23.75}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1428300828
