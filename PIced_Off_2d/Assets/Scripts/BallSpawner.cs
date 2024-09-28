@@ -33,7 +33,10 @@ public class BallSpawner : MonoBehaviour
     void Update()
     {
         
-
+        if (Input.GetMouseButtonDown(1))
+        {
+            SpawnBall();
+        }
         if ((ballList.Count - 1) > 0 && (ballList[ballList.Count - 1].GetComponent<BallControler>().IsHead()))
         {
             if (Input.GetKeyDown(KeyCode.W))
@@ -80,17 +83,25 @@ public class BallSpawner : MonoBehaviour
 
     void ChangeCamFOV()
     {
-        if (Camera.main.fieldOfView < (20 + (GetNumBalls() * 10)))      // if more balls added do
+        if (GetNumBalls() == 1)
         {
-            while (Camera.main.fieldOfView < (20 + (GetNumBalls() * 10)))
+            while (Camera.main.fieldOfView != 50)
             {
                 Camera.main.fieldOfView++;                      // increase FOV
                 Camera.main.transform.Translate(0, 0, 0.2f);        // move cam so not see behind
             }
         }
-        else if (Camera.main.fieldOfView > (20 + (GetNumBalls() * 10)))
+        else if (Camera.main.fieldOfView > (40 + (GetNumBalls() * 10)))      // if more balls added do
         {
-            while (Camera.main.fieldOfView > (20 + (GetNumBalls() * 10)))
+            while (Camera.main.fieldOfView != (40 + (GetNumBalls() * 10)))
+            {
+                Camera.main.fieldOfView++;                      // increase FOV
+                Camera.main.transform.Translate(0, 0, 0.2f);        // move cam so not see behind
+            }
+        }
+        else if (Camera.main.fieldOfView < (40 + (GetNumBalls() * 10)))
+        {
+            while (Camera.main.fieldOfView != (40 + (GetNumBalls() * 10)))
             {
                 Camera.main.fieldOfView--;
                 Camera.main.transform.Translate(0, 0, -0.2f);
