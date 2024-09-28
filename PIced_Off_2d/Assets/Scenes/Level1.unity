@@ -200,12 +200,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149071418}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.23, y: 2.83, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 16.23, y: -0.17000008, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &149071421
 MonoBehaviour:
@@ -454,6 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timePerSpawn: 4
   currentTime: 0
+  totalTime: 0
   badPrefab: {fileID: 8334205640017907801, guid: ec09124c355396a4c8e9938e23a5dba6, type: 3}
   camLocation: {fileID: 809545372}
 --- !u!1 &519420028
@@ -546,6 +547,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 149071420}
   - {fileID: 809545372}
   - {fileID: 444610820}
   - {fileID: 454621302}
@@ -904,7 +906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0
-  minXPosition: 0
+  minXPosition: -3.02
 --- !u!1 &809545371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1555,7 +1557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1651820810
 Rigidbody2D:
   serializedVersion: 4
@@ -2098,4 +2100,3 @@ SceneRoots:
   - {fileID: 1068865617}
   - {fileID: 866549813}
   - {fileID: 972077865}
-  - {fileID: 149071420}

@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class BallSpawner : MonoBehaviour
 {
@@ -83,30 +84,37 @@ public class BallSpawner : MonoBehaviour
 
     void ChangeCamFOV()
     {
-        if (GetNumBalls() == 1)
+        if (Camera.main.fieldOfView != (20 + (GetNumBalls() * 10)))
         {
-            while (Camera.main.fieldOfView != 50)
-            {
-                Camera.main.fieldOfView++;                      // increase FOV
-                Camera.main.transform.Translate(0, 0, 0.2f);        // move cam so not see behind
-            }
+            //Camera.main.fieldOfView = (20 + (GetNumBalls() * 10));
+            //Camera.main.transform.position = new Vector3(-7.5f, )
+            //Camera.main.transform.Translate(0, 0, (GetNumBalls()/5));
         }
-        else if (Camera.main.fieldOfView > (40 + (GetNumBalls() * 10)))      // if more balls added do
-        {
-            while (Camera.main.fieldOfView != (40 + (GetNumBalls() * 10)))
-            {
-                Camera.main.fieldOfView++;                      // increase FOV
-                Camera.main.transform.Translate(0, 0, 0.2f);        // move cam so not see behind
-            }
-        }
-        else if (Camera.main.fieldOfView < (40 + (GetNumBalls() * 10)))
-        {
-            while (Camera.main.fieldOfView != (40 + (GetNumBalls() * 10)))
-            {
-                Camera.main.fieldOfView--;
-                Camera.main.transform.Translate(0, 0, -0.2f);
-            }
-        }
+        //if (GetNumBalls() == 1)
+        //{
+        //    while (Camera.main.fieldOfView != 50)
+        //    {
+        //        Camera.main.fieldOfView++;                      // increase FOV
+        //        Camera.main.transform.Translate(0, 0, 0.2f);        // move cam so not see behind
+        //    }
+        //}
+        //else if (Camera.main.fieldOfView < (20 + (GetNumBalls() * 10)))      // if more balls added do
+        //{
+        //    Camera.main.fieldOfView = (20 + (GetNumBalls() * 10));
+        //    while (Camera.main.fieldOfView != (20 + (GetNumBalls() * 10)))
+        //    {
+        //        Camera.main.fieldOfView++;                      // increase FOV
+        //        Camera.main.transform.Translate(0, 0, 0.2f);        // move cam so not see behind
+        //    }
+        //}
+        //else if (Camera.main.fieldOfView > (20 + (GetNumBalls() * 10)))
+        //{
+        //    while (Camera.main.fieldOfView != (20 + (GetNumBalls() * 10)))
+        //    {
+        //        Camera.main.fieldOfView--;
+        //        Camera.main.transform.Translate(0, 0, -0.2f);
+        //    }
+        //}
     }
 
     void SelectBottom()

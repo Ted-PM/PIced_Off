@@ -17,12 +17,22 @@ public class Floor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.left * scrollSpeed * Time.deltaTime;
+        if (((BadSpawner.Instance.totalTime ) > 1) && (GameManager.Instance.MenuIsActive() == false))
+        {
+           scrollSpeed = (BadSpawner.Instance.totalTime);
+        }
+        else if (GameManager.Instance.MenuIsActive() == true)
+        {
+            scrollSpeed = 10;
+        }
+
+        
+
+        transform.position += Vector3.left * scrollSpeed * Time.deltaTime; // * Time.deltaTime
 
         if (transform.position.x < minXPosition)
         {
             transform.position = initialPosition;
-            scrollSpeed += 0.05f;
         }
     }
 }

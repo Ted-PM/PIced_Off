@@ -10,6 +10,7 @@ public class BadSpawner : MonoBehaviour
     float secondsPassed;
     public float timePerSpawn;
     public float currentTime;
+    public float totalTime;
 
     public GameObject badPrefab;
 
@@ -35,6 +36,7 @@ public class BadSpawner : MonoBehaviour
         }
 
         secondsPassed += Time.deltaTime;
+        totalTime += Time.deltaTime;
     }
 
     void SpawnBad()
