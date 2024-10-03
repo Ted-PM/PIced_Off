@@ -84,12 +84,12 @@ public class BallSpawner : MonoBehaviour
 
     void ChangeCamFOV()
     {
-        if (Camera.main.fieldOfView != (20 + (GetNumBalls() * 10)))
-        {
-            //Camera.main.fieldOfView = (20 + (GetNumBalls() * 10));
-            //Camera.main.transform.position = new Vector3(-7.5f, )
-            //Camera.main.transform.Translate(0, 0, (GetNumBalls()/5));
-        }
+        //if (Camera.main.fieldOfView != (20 + (GetNumBalls() * 10)))
+        //{
+        //    //Camera.main.fieldOfView = (20 + (GetNumBalls() * 10));
+        //    //Camera.main.transform.position = new Vector3(-7.5f, )
+        //    //Camera.main.transform.Translate(0, 0, (GetNumBalls()/5));
+        //}
         //if (GetNumBalls() == 1)
         //{
         //    while (Camera.main.fieldOfView != 50)

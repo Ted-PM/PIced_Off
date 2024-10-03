@@ -8,13 +8,25 @@ public class FakeBall : MonoBehaviour
     public float fakeBallVelocity;
     Rigidbody2D rigidBody2D;
 
+    public Animator rollAnimator;
+    float animSpeedControl = 1f;
     void Start()
     {
+        
         rigidBody2D = GetComponent<Rigidbody2D>();
+        if (animSpeedControl < 1 || GameManager.Instance.MenuIsActive() == true) // if at start of round, or if player died
+        {
+            animSpeedControl = (BadSpawner.Instance.logTotalTime / 8);
+        }
+        //anim.SetFloat("speed", X);
+        //animSpeedControl = ((BadSpawner.Instance.totalTime)/8);
+        
+        rollAnimator.SetFloat("SpeedMultiplier", animSpeedControl);
     }
 
     void Update()
     {
+        
         rigidBody2D.velocity = Vector2.left * fakeBallVelocity;
 
         if (GameManager.Instance.MenuIsActive() == true)        // if head destroyed

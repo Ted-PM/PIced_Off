@@ -17,11 +17,12 @@ public class Floor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (((BadSpawner.Instance.totalTime ) > 1) && (GameManager.Instance.MenuIsActive() == false))
+        if (((BadSpawner.Instance.logTotalTime) > 10) && (GameManager.Instance.MenuIsActive() == false))
         {
-           scrollSpeed = (BadSpawner.Instance.totalTime);
+            //scrollSpeed = (BadSpawner.Instance.totalTime);
+            scrollSpeed = BadSpawner.Instance.logTotalTime;
         }
-        else if (GameManager.Instance.MenuIsActive() == true)
+        else// if (GameManager.Instance.MenuIsActive() == true)
         {
             scrollSpeed = 10;
         }

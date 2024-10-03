@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fakeBallVelocity: 10
+  rollAnimator: {fileID: -4721005856497668472}
+  animSpeedControl: 5
 --- !u!95 &-4721005856497668472
 Animator:
   serializedVersion: 5

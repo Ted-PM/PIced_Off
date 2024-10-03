@@ -11,7 +11,9 @@ public class BulletTemp : MonoBehaviour
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
-        bulletVelocity = BadSpawner.Instance.currentTime;
+        //bulletVelocity = BadSpawner.Instance.currentTime;
+        bulletVelocity = BadSpawner.Instance.logTotalTime;
+        
     }
 
     // Update is called once per frame
