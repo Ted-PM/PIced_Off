@@ -20,12 +20,14 @@ public class BallSpawner : MonoBehaviour
     public Vector3 initialScale = new Vector3(1, 1, 1); // Default scale for new prefabs
     public float scaleFactor = 0.3f;
 
+    public bool Lost;
     private void Awake()
     {
         Instance = this;
     }
     void Start()
     {
+        Lost = false;
         instatiateHeight = 0;                   // how high ball will be spawned, increase on each spawn / decrease if destroyed
         ballList = new List <GameObject>();
         spawnStart();
@@ -33,7 +35,7 @@ public class BallSpawner : MonoBehaviour
 
     void Update()
     {
-        
+
         if (Input.GetMouseButtonDown(1))
         {
             SpawnBall();
@@ -41,12 +43,24 @@ public class BallSpawner : MonoBehaviour
         if ((ballList.Count - 1) > 0 && (ballList[ballList.Count - 1].GetComponent<BallControler>().IsHead()))
         {
             if (Input.GetKeyDown(KeyCode.W))
-            {
                 SelectBallUp();
-            }
             else if (Input.GetKeyDown(KeyCode.S))
-            {
                 SelectBallDown();
+
+            float wheele = Input.mouseScrollDelta.y;
+            if (wheele > 0)
+            {
+                for (int i = 0; i < wheele; i++)
+                {
+                    SelectBallUp();
+                }
+            }
+            else if (wheele < 0)
+            {
+                for (int i = (int)wheele; i < 0; i++)
+                {
+                    SelectBallDown();
+                }
             }
 
             //ChangeCamFOV();
@@ -153,8 +167,8 @@ public class BallSpawner : MonoBehaviour
 
         if (ballSelector == ballList.Count - 1)       // if last in list, deselect and go bottom
         {
-            ballList[ballSelector].GetComponent<BallControler>().DeSelect();
-            SelectBottom();
+            //ballList[ballSelector].GetComponent<BallControler>().DeSelect();              // ---- allow loop select
+            //SelectBottom();
         }
         else
         {
@@ -172,9 +186,9 @@ public class BallSpawner : MonoBehaviour
         //Debug.Log("selectBall " + ballSelector);
 
         if (ballSelector == 0)       // if last in list, deselect and go bottom
-        {
-            ballList[ballSelector].GetComponent<BallControler>().DeSelect();
-            SelectTop();
+        {   
+            //ballList[ballSelector].GetComponent<BallControler>().DeSelect();          // ----- allow loop select
+            //SelectTop();
         }
         else
         {
@@ -263,6 +277,7 @@ public class BallSpawner : MonoBehaviour
 
     public void LoseAll()
     {
+        Lost = true;
         if (ballList.Count > 0)
         {
             Debug.Log("start lose all");

@@ -29,7 +29,7 @@ public class FakeBall : MonoBehaviour
         
         rigidBody2D.velocity = Vector2.left * fakeBallVelocity;
 
-        if (GameManager.Instance.MenuIsActive() == true)        // if head destroyed
+        if (GameManager.Instance.MenuIsActive() == true || BallSpawner.Instance.Lost == true)        // if head destroyed
         {
             RemoveCollider();       // remove own collider so don't mess up game by adding new ball
         }

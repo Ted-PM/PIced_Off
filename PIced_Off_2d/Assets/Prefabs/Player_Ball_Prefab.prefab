@@ -129,6 +129,7 @@ MonoBehaviour:
   jumpVelocity: 13
   headSprite: {fileID: 3238564461173103932, guid: 1ec69f8a6d819564ea67ffef5c667001, type: 3}
   bodySprite: {fileID: 6673823039704247630, guid: e24e485aecf39ef4488e2312cf7af030, type: 3}
+  dieParticles: {fileID: 3868661937521371785, guid: 18c77c4b399f73d499227a14f104dcb0, type: 3}
 --- !u!58 &835041939877101965
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -42,8 +42,11 @@ public class NewBall : MonoBehaviour
         if (secondsPassed >= timePerSpawn)
         {
             currentTime += secondsPassed;
-
-            RollBall();
+            if (BallSpawner.Instance.GetNumBalls() < 8)
+            {
+                RollBall();
+            }
+           
             secondsPassed = 0;
 
             timePerSpawn = Random.Range(10, 15);        // how long between new fake ball

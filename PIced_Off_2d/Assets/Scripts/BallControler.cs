@@ -10,11 +10,11 @@ public class BallControler : MonoBehaviour
     bool canJump = true;
     Rigidbody2D rigidBody2D;
     bool isSelected = false;
-    //public BulletTemp bulletBody2D;
-    //int ballPos;        // relative position in tower of balls
 
     public Sprite headSprite;
     public Sprite bodySprite;
+
+    public ParticleSystem dieParticles;
 
     int numberOfPrefabs;
 
@@ -48,7 +48,7 @@ public class BallControler : MonoBehaviour
         //    gameObject.GetComponent<Renderer>().material.color = Color.white;
         //}
 
-        if (canJump && Input.GetMouseButtonDown(0) && isSelected)
+        if (canJump && (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space")) && isSelected)
         {
             //Debug.Log("selected and jumping");
 
@@ -108,6 +108,9 @@ public class BallControler : MonoBehaviour
 
     public void Lose()
     {
+        ParticleSystem diePart = Instantiate(dieParticles);
+        diePart.transform.position = gameObject.transform.position;
+
         BallSpawner.Instance.ballList.Remove(gameObject);       // remove self from ball spawner list (this 1 line replaced a fkin paragraph in "MoveHeightDown()"
 
         Destroy(gameObject);                            // destroy self
@@ -121,6 +124,7 @@ public class BallControler : MonoBehaviour
         {
             BallSpawner.Instance.LoseAll();
         }
+        //Destroy(diePart);
     }
 
     public bool CheckCanJump() { return canJump; }
