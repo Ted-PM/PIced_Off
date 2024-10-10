@@ -37,4 +37,14 @@ public class GameManager : MonoBehaviour
 
         SceneManager.LoadScene(0);      // only one scene rn, so loads that
     }
+
+    public void Quit()
+    {
+        #if UNITY_STANDALONE                // if running in game view
+                Application.Quit();
+        #endif
+        #if UNITY_EDITOR        // if running on acc web or smth 
+                UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+    }
 }

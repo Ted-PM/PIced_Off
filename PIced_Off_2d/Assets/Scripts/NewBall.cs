@@ -42,7 +42,7 @@ public class NewBall : MonoBehaviour
         if (secondsPassed >= timePerSpawn)
         {
             currentTime += secondsPassed;
-            if (BallSpawner.Instance.GetNumBalls() < 8)
+            if (BallSpawner.Instance.GetNumBalls() < 7)
             {
                 RollBall();
             }

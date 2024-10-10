@@ -30,6 +30,7 @@ public class BallControler : MonoBehaviour
 
     void Update()
     {
+
         //if (isSelected) { Debug.Log("isselected"); }
 
         //if (canJump) { Debug.Log("canJumpRN"); }
