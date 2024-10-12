@@ -6181,7 +6181,7 @@ GameObject:
   - component: {fileID: 769331702}
   - component: {fileID: 769331703}
   m_Layer: 0
-  m_Name: Head2_0
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6615,7 +6615,7 @@ GameObject:
   - component: {fileID: 892034143}
   - component: {fileID: 892034145}
   m_Layer: 5
-  m_Name: VidScare
+  m_Name: YouDiedVid
   m_TagString: Video
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7562,7 +7562,7 @@ GameObject:
   - component: {fileID: 1518729923}
   - component: {fileID: 1518729922}
   m_Layer: 5
-  m_Name: RunninMenu - Particle System
+  m_Name: SnowTrail - Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
