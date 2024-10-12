@@ -38,7 +38,7 @@ public class BallSpawner : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            SpawnBall();
+            LoseAll();
         }
         if ((ballList.Count - 1) > 0 && (ballList[ballList.Count - 1].GetComponent<BallControler>().IsHead()))
         {
