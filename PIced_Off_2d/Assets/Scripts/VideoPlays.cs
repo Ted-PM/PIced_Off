@@ -7,11 +7,15 @@ using UnityEngine.UI;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
+using System;
 public class VideoPlays : MonoBehaviour
 {
     //public static VideoPlays instance;
-    public VideoPlayer deerScare;
+    public VideoPlayer videoToPlay;
 
+    long numFrames = 0;
+    public bool isScary;
+    //int frameCount;
     //public TextMeshProUGUI scaryTXT;
 
     //public int isScary;
@@ -24,7 +28,13 @@ public class VideoPlays : MonoBehaviour
     private void Start()
     {
         //scaryTXT.SetText("scaryTXT");
-        deerScare.Play();
+        videoToPlay.Play();
+        numFrames = Convert.ToInt64(videoToPlay.GetComponent<VideoPlayer>().frameCount);
+
+        if (isScary)
+        {
+            numFrames -= 15;
+        }
     }
 
     void Update()
@@ -34,9 +44,13 @@ public class VideoPlays : MonoBehaviour
         //    deerScare.Play();
         //}
 
-        if (((deerScare != null) && (deerScare.frame >= 128)) || Input.anyKeyDown)
+        if (((videoToPlay != null) && (videoToPlay.frame > numFrames)) || Input.anyKeyDown)
         {
-            Destroy(deerScare);
+            if (isScary)
+            {
+                GameManager.Instance.scaryVidOver();
+            }
+            Destroy(videoToPlay);
         }
     }
 

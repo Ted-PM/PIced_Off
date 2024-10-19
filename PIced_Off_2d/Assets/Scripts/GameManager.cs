@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject gameOverMenu;
     public GameObject settingsMenu;
+    public GameObject scaryDeerVid;
     public bool menuIsActive;          // allow other things to check if game is over
     //public bool scary = false;
     //public int isScaryInt;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverMenu.SetActive(false);      // start w/ game over menue
         settingsMenu.SetActive(false);
+        scaryDeerVid.SetActive(false);
         menuIsActive = false;
 
         //PlayerPrefs.GetString("scaryTXT");
@@ -46,11 +48,21 @@ public class GameManager : MonoBehaviour
     //}
     public void GameOver()
     {
+        scaryDeerVid.SetActive(true);
+        //Debug.Log("game over called");
+        //settingsMenu.SetActive(false);
+        //gameOverMenu.SetActive(false);       // make game over menu appear (has butto to restart)
+        //menuIsActive = false;
+
+        //Time.timeScale = 0;
+    }
+
+    public void scaryVidOver()
+    {
         Debug.Log("game over called");
         settingsMenu.SetActive(false);
         gameOverMenu.SetActive(true);       // make game over menu appear (has butto to restart)
         menuIsActive = true;
-        //Time.timeScale = 0;
     }
 
     public void viewSettings()
