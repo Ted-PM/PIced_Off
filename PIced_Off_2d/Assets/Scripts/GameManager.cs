@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+
         gameOverMenu.SetActive(false);      // start w/ game over menue
         settingsMenu.SetActive(false);
         scaryDeerVid.SetActive(false);
@@ -48,7 +49,14 @@ public class GameManager : MonoBehaviour
     //}
     public void GameOver()
     {
-        scaryDeerVid.SetActive(true);
+        if (ScaryToggle.Instance.myToggle.GetComponent<Toggle>().isOn)
+        {
+            scaryDeerVid.SetActive(true);
+        }
+        else
+        {
+            viewMenu();
+        }
         //Debug.Log("game over called");
         //settingsMenu.SetActive(false);
         //gameOverMenu.SetActive(false);       // make game over menu appear (has butto to restart)
@@ -57,9 +65,10 @@ public class GameManager : MonoBehaviour
         //Time.timeScale = 0;
     }
 
-    public void scaryVidOver()
+    public void viewMenu()
     {
         Debug.Log("game over called");
+        scaryDeerVid.SetActive(false);
         settingsMenu.SetActive(false);
         gameOverMenu.SetActive(true);       // make game over menu appear (has butto to restart)
         menuIsActive = true;
@@ -68,7 +77,8 @@ public class GameManager : MonoBehaviour
     public void viewSettings()
     {
         Debug.Log("DisplaySettings");
-
+        menuIsActive = false;
+        scaryDeerVid.SetActive(false);
         gameOverMenu.SetActive(false);
         settingsMenu.SetActive(true);
     }

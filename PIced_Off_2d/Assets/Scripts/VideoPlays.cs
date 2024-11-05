@@ -28,6 +28,7 @@ public class VideoPlays : MonoBehaviour
     private void Start()
     {
         //scaryTXT.SetText("scaryTXT");
+
         videoToPlay.Play();
         numFrames = Convert.ToInt64(videoToPlay.GetComponent<VideoPlayer>().frameCount);
 
@@ -35,6 +36,11 @@ public class VideoPlays : MonoBehaviour
         {
             numFrames -= 15;
         }
+        else
+        {
+            numFrames -= 5;
+        }
+        
     }
 
     void Update()
@@ -43,15 +49,20 @@ public class VideoPlays : MonoBehaviour
         //{
         //    deerScare.Play();
         //}
+        //if (isScary && videoToPlay.frame == 5)
+        //{
+        //    numFrames -= 15;
+        //}
 
         if (((videoToPlay != null) && (videoToPlay.frame > numFrames)) || Input.anyKeyDown)
         {
             if (isScary)
             {
-                GameManager.Instance.scaryVidOver();
+                GameManager.Instance.viewMenu();
             }
             Destroy(videoToPlay);
         }
+        
     }
 
     //public bool returnScaryStat()
