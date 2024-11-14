@@ -24,8 +24,12 @@ public class BulletTemp : MonoBehaviour
         {
             bulletVelocity = 10;
         }
+        else if (bulletVelocity > 30)
+        {
+            bulletVelocity = 30;
+        }
 
-        rigidBody2D.velocity = Vector2.left * bulletVelocity;   // 
+            rigidBody2D.velocity = Vector2.left * bulletVelocity;   // 
 
         if (GameManager.Instance.MenuIsActive() == true || BallSpawner.Instance.Lost == true)        // if head destroyed
         {
