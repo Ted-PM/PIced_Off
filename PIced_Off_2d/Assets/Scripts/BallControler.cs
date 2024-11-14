@@ -20,11 +20,14 @@ public class BallControler : MonoBehaviour
 
     bool isHead = false;
 
+    private AudioSource jumpSound;
+
     //public bool isSelected;
 
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
+        jumpSound = GetComponent<AudioSource>();
         //gameObject.GetComponent<SpriteRenderer>().sprite = bodySprite;
     }
 
@@ -101,8 +104,11 @@ public class BallControler : MonoBehaviour
 
     void Jump()
     {
+        
         numberOfPrefabs = BallSpawner.Instance.NumBallsAbove(this);     // get num balls above self (including slelf)
-
+        jumpSound.pitch = 2.0f / (float)numberOfPrefabs;
+        jumpSound.Play();
+        //jumpSound.pitch = 1;
         rigidBody2D.velocity = Vector2.up * jumpVelocity * numberOfPrefabs; // increase velocity based on ^ to push other balls up
         canJump = false;
     }
