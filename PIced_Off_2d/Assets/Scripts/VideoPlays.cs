@@ -28,7 +28,7 @@ public class VideoPlays : MonoBehaviour
     private void Start()
     {
         //scaryTXT.SetText("scaryTXT");
-
+        //GameManager.Instance.stopWind();
         videoToPlay.Play();
         numFrames = Convert.ToInt64(videoToPlay.GetComponent<VideoPlayer>().frameCount);
 
@@ -60,6 +60,7 @@ public class VideoPlays : MonoBehaviour
             {
                 GameManager.Instance.viewMenu();
             }
+            GameManager.Instance.playWind();
             Destroy(videoToPlay);
         }
         

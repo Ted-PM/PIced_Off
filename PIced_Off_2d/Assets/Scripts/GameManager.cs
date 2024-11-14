@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject scaryDeerVid;
     public bool menuIsActive;          // allow other things to check if game is over
+
+    public AudioSource windLoop;
     //public bool scary = false;
     //public int isScaryInt;
     //public Toggle isScary;
@@ -26,11 +28,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
         gameOverMenu.SetActive(false);      // start w/ game over menue
         settingsMenu.SetActive(false);
         scaryDeerVid.SetActive(false);
         menuIsActive = false;
+        windLoop.Stop();
 
         //PlayerPrefs.GetString("scaryTXT");
         //if(returnScaryStat())
@@ -41,7 +43,7 @@ public class GameManager : MonoBehaviour
         //isScary.set
         //isScaryInt = PlayerPrefs.GetInt("isScaryInt");
 
-            //scary = false;
+        //scary = false;
     }
     //public bool returnScaryStat()
     //{
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
     {
         if (ScaryToggle.Instance.myToggle.GetComponent<Toggle>().isOn)
         {
+            windLoop.Stop();
             scaryDeerVid.SetActive(true);
         }
         else
@@ -111,5 +114,22 @@ public class GameManager : MonoBehaviour
         #if UNITY_EDITOR        // if running on acc web or smth 
                 UnityEditor.EditorApplication.isPlaying = false;
         #endif
+    }
+
+    public void playWind()
+    {
+        windLoop.Play();
+        //if (!windLoop.isPlaying)
+        //{
+        //    windLoop.Play();
+        //}
+    }
+    public void stopWind()
+    {
+        windLoop.Stop();
+        //if (windLoop.isPlaying)
+        //{
+        //    windLoop.Stop();
+        //}
     }
 }

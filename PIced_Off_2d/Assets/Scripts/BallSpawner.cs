@@ -24,6 +24,7 @@ public class BallSpawner : MonoBehaviour
 
     public AudioSource dieSound;
     public AudioSource ballDieSound;
+    public AudioSource getBallSound;
     private void Awake()
     {
         Instance = this;
@@ -257,6 +258,7 @@ public class BallSpawner : MonoBehaviour
 
     void MoveHeightUp()     // when ball made, move up height for next spawn to be at
     {
+        getBallSound.Play();
         instatiateHeight += 1;
         ChangeCamFOV();
         ReSizeBalls();
