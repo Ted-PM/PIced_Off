@@ -21,6 +21,9 @@ public class BallSpawner : MonoBehaviour
     public float scaleFactor = 0.3f;
 
     public bool Lost;
+
+    public AudioSource dieSound;
+    public AudioSource ballDieSound;
     private void Awake()
     {
         Instance = this;
@@ -31,6 +34,7 @@ public class BallSpawner : MonoBehaviour
         instatiateHeight = 0;                   // how high ball will be spawned, increase on each spawn / decrease if destroyed
         ballList = new List <GameObject>();
         spawnStart();
+        dieSound.time = dieSound.clip.length * 0.11f;
     }
 
     void Update()
@@ -259,6 +263,8 @@ public class BallSpawner : MonoBehaviour
     }
     public void MoveHeightDown()        // ball destroyed move height down then select lowest ball
     {
+        ballDieSound.Play();
+
         instatiateHeight -= 1;
 
         Debug.Log("curent balls = " + ballList.Count);
@@ -278,6 +284,8 @@ public class BallSpawner : MonoBehaviour
     public void LoseAll()
     {
         Lost = true;
+        dieSound.Play();
+
         if (ballList.Count > 0)
         {
             Debug.Log("start lose all");
@@ -300,6 +308,12 @@ public class BallSpawner : MonoBehaviour
 
         GameManager.Instance.GameOver();
     }
+
+    //public void playSound(AudioSource sound)
+    //{
+    //    Debug.Log("PlaySound");
+    //    sound.Play();
+    //}
 }
 
 

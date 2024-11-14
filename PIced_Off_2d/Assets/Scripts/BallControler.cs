@@ -20,14 +20,15 @@ public class BallControler : MonoBehaviour
 
     bool isHead = false;
 
-    private AudioSource jumpSound;
+    public AudioSource jumpSound;
+    //public AudioSource ballDieSound;
 
     //public bool isSelected;
 
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
-        jumpSound = GetComponent<AudioSource>();
+        //jumpSound = GetComponent<AudioSource>();
         //gameObject.GetComponent<SpriteRenderer>().sprite = bodySprite;
     }
 
@@ -108,7 +109,6 @@ public class BallControler : MonoBehaviour
         numberOfPrefabs = BallSpawner.Instance.NumBallsAbove(this);     // get num balls above self (including slelf)
         jumpSound.pitch = 2.0f / (float)numberOfPrefabs;
         jumpSound.Play();
-        //jumpSound.pitch = 1;
         rigidBody2D.velocity = Vector2.up * jumpVelocity * numberOfPrefabs; // increase velocity based on ^ to push other balls up
         canJump = false;
     }
@@ -119,17 +119,21 @@ public class BallControler : MonoBehaviour
         diePart.transform.position = gameObject.transform.position;
 
         BallSpawner.Instance.ballList.Remove(gameObject);       // remove self from ball spawner list (this 1 line replaced a fkin paragraph in "MoveHeightDown()"
+        //BallSpawner.Instance.playSound(ballDieSound);
 
         Destroy(gameObject);                            // destroy self
         if (!isHead)
         {
+            
             BallSpawner.Instance.MoveHeightDown();      // spawn new ball lower
         }
         Debug.Log("lose");
 
         if (isHead)
         {
+            //dieSound.Play();
             BallSpawner.Instance.LoseAll();
+            
         }
         //Destroy(diePart);
     }
