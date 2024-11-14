@@ -19,8 +19,10 @@ public class BallControler : MonoBehaviour
     int numberOfPrefabs;
 
     bool isHead = false;
+    bool isBottom = false;
 
     public AudioSource jumpSound;
+    bool ballThrown = false;
     //public AudioSource ballDieSound;
 
     //public bool isSelected;
@@ -99,13 +101,21 @@ public class BallControler : MonoBehaviour
         else
         {
             canJump = true;
+            if (isBottom && !ballThrown)
+            {
+                BallSpawner.Instance.speedSnow.Play();
+            }
             //Debug.Log("canJump");
         }
     }
 
     void Jump()
     {
-        
+        if (isBottom)
+        {
+            BallSpawner.Instance.speedSnow.Stop();
+        }
+
         numberOfPrefabs = BallSpawner.Instance.NumBallsAbove(this);     // get num balls above self (including slelf)
         jumpSound.pitch = 2.0f / (float)numberOfPrefabs;
         jumpSound.Play();
@@ -145,7 +155,19 @@ public class BallControler : MonoBehaviour
         isHead = true;
         gameObject.GetComponent<SpriteRenderer>().sprite = headSprite;
 
+        //
+        //
         //Debug.Log("head set");
+    }
+
+    public void setBottom()
+    {
+        isBottom = true;
+    }
+
+    public void removeBottom()
+    {
+        isBottom = false;
     }
 
     public void RemoveHead()
@@ -159,6 +181,7 @@ public class BallControler : MonoBehaviour
 
     public void ThrowBall(int speed)                // called if head destroyed
     {
+        ballThrown = true;
         //RemoveCollider();                                 // looks dubious tbf
         rigidBody2D.AddForce(Vector2.right * speed);            // move ball
         StartCoroutine(DelayThenDestroy());     // call coroutine to kill self

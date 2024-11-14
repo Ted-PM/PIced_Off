@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject scaryDeerVid;
     public bool menuIsActive;          // allow other things to check if game is over
+    public GameObject snowfall;
 
     public AudioSource windLoop;
     //public bool scary = false;
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
         gameOverMenu.SetActive(false);      // start w/ game over menue
         settingsMenu.SetActive(false);
         scaryDeerVid.SetActive(false);
+        snowfall.SetActive(true);
         menuIsActive = false;
         windLoop.Stop();
 
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour
         if (ScaryToggle.Instance.myToggle.GetComponent<Toggle>().isOn)
         {
             windLoop.Stop();
+            //snowfall.SetActive
             scaryDeerVid.SetActive(true);
         }
         else
@@ -71,6 +74,7 @@ public class GameManager : MonoBehaviour
     public void viewMenu()
     {
         Debug.Log("game over called");
+        snowfall.SetActive(false);
         scaryDeerVid.SetActive(false);
         settingsMenu.SetActive(false);
         gameOverMenu.SetActive(true);       // make game over menu appear (has butto to restart)

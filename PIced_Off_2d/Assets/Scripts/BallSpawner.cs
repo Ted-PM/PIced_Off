@@ -25,6 +25,8 @@ public class BallSpawner : MonoBehaviour
     public AudioSource dieSound;
     public AudioSource ballDieSound;
     public AudioSource getBallSound;
+
+    public ParticleSystem speedSnow;
     private void Awake()
     {
         Instance = this;
@@ -36,6 +38,7 @@ public class BallSpawner : MonoBehaviour
         ballList = new List <GameObject>();
         spawnStart();
         dieSound.time = dieSound.clip.length * 0.11f;
+        speedSnow.Play();
     }
 
     void Update()
@@ -71,6 +74,7 @@ public class BallSpawner : MonoBehaviour
             //ChangeCamFOV();
 
             ballList[ballList.Count - 1].GetComponent<BallControler>().SetHead();
+            ballList[0].GetComponent<BallControler>().setBottom();
             //ReSizeBalls();
         }
     }
@@ -99,6 +103,7 @@ public class BallSpawner : MonoBehaviour
         SpawnBall();
         SelectBottom();
         ballList[2].GetComponent<BallControler>().SetHead();
+        ballList[0].GetComponent<BallControler>().setBottom();
     }
 
     void ChangeCamFOV()
@@ -275,7 +280,7 @@ public class BallSpawner : MonoBehaviour
         {
             ballList[ballSelector - 1].GetComponent<BallControler>().DeSelect();        // just trust this line, weird stuff happen without (case 3 balls, selected top ball and middle breaks, wierd reselection stuff) 
         }
-
+        ballList[0].GetComponent<BallControler>().setBottom();
         //Debug.Log("MoveHD new num = " + ballList.Count);
 
         SelectBottom();
@@ -287,6 +292,7 @@ public class BallSpawner : MonoBehaviour
     {
         Lost = true;
         dieSound.Play();
+        speedSnow.Stop();
 
         if (ballList.Count > 0)
         {
