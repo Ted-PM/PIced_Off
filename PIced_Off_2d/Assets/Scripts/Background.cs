@@ -7,9 +7,18 @@ public class Background : MonoBehaviour
     public float scrollSpeed;
     Vector3 initialPosition;
     public float minXPosition;
-    void Start()
+    public float startPos;
+    private void Awake()
     {
         initialPosition = transform.position;
+        //Debug.Log(initialPosition.x);
+        initialPosition.x = startPos;
+        //Debug.Log(initialPosition.x);
+    }
+
+    void Start()
+    {
+        //initialPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -17,7 +26,7 @@ public class Background : MonoBehaviour
     {
         transform.position += Vector3.left * scrollSpeed * Time.deltaTime;
 
-        if (transform.position.x < minXPosition)
+        if (transform.position.x <= minXPosition)
         {
             transform.position = initialPosition;
         }
