@@ -44,10 +44,10 @@ public class BallSpawner : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            LoseAll();
-        }
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    LoseAll();
+        //}
         if ((ballList.Count - 1) > 0 && (ballList[ballList.Count - 1].GetComponent<BallControler>().IsHead()))
         {
             if (Input.GetKeyDown(KeyCode.W))
@@ -96,7 +96,7 @@ public class BallSpawner : MonoBehaviour
             }
         }
     }
-    void spawnStart()
+    public void spawnStart()
     {
         SpawnBall();
         SpawnBall();

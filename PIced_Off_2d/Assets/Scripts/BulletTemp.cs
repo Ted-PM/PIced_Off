@@ -12,6 +12,10 @@ public class BulletTemp : MonoBehaviour
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
+        if(BallSpawner.Instance.GetNumBalls() == 0)
+        {
+            RemoveCollider();
+        }
         //bulletVelocity = BadSpawner.Instance.currentTime;
         bulletVelocity = BadSpawner.Instance.logTotalTime;
         

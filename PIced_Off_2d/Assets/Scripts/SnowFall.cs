@@ -6,7 +6,7 @@ public class SnowFall : MonoBehaviour
 {
     public GameObject thingToPointTo;       // character usually
     Transform pointToPosition;
-
+        
     private float height;
 
     private ParticleSystem snow;
