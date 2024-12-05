@@ -46,6 +46,12 @@ TagManager:
   - name: Background
     uniqueID: 304214439
     locked: 0
+  - name: Player
+    uniqueID: 2778470707
+    locked: 0
   - name: UI
     uniqueID: 4204283085
+    locked: 0
+  - name: Floor
+    uniqueID: 3530280915
     locked: 0

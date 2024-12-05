@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverMenu.SetActive(false);      // start w/ game over menue
         settingsMenu.SetActive(false);
+        scaryDeerVid.SetActive(true);
         scaryDeerVid.SetActive(false);
         snowfall.SetActive(true);
         menuIsActive = false;

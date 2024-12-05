@@ -26,32 +26,48 @@ public class VideoPlays : MonoBehaviour
     {
         if (!isScary)
         {
-            videoToPlay.url = System.IO.Path.Combine(Application.dataPath, "Materials/SnowmanEnter3.mp4");
+            videoToPlay.url = System.IO.Path.Combine(Application.streamingAssetsPath, "SnowmanEnter3.mp4");
         }
         else
         {
-            videoToPlay.url = System.IO.Path.Combine(Application.dataPath, "Materials/PicedOff_DeerScarLonger.mp4");
+            videoToPlay.url = System.IO.Path.Combine(Application.streamingAssetsPath, "PicedOff_DeerScarLonger.mp4");
         }
+
         //instance = this;
         //scaryTXT.SetText("scaryTXT");
 
     }
     private void Start()
-    {   
+    {
+        Debug.Log(videoToPlay.url);
+        //if (!isScary && videoToPlay != null)
+        //{
+        //    GameManager.Instance.playWind();
+        //}
+        //else if (videoToPlay != null)
+        //{
+        //    GameManager.Instance.viewMenu();
+        //    GameManager.Instance.playWind();
+        //}
+        //-----
         if (videoToPlay != null)
         {
             videoToPlay.Play();
+            vidDone = false;
+            coroutine = WaitForVidEnd(playTime);
+            StartCoroutine(coroutine);
         }
+        //-----
+
         //Debug.Log(Application.dataPath);
         //scaryTXT.SetText("scaryTXT");
         //GameManager.Instance.stopWind();
         //videoToPlay.url = System.IO.Path.Combine(Application.streamingAssetsPath, "SnowmanEnter3.mp4");
         //videoToPlay.url.play();
         //videoToPlay.VideoAudioOutputMode.Direct;
-        vidDone = false;
-        videoToPlay.Play();
-        coroutine = WaitForVidEnd(playTime);
-        StartCoroutine(coroutine);
+
+        //videoToPlay.Play();
+
         //numFrames = Convert.ToInt64(videoToPlay.GetComponent<VideoPlayer>().frameCount);
 
         //if (isScary)
@@ -77,6 +93,7 @@ public class VideoPlays : MonoBehaviour
         //}
         //if (((videoToPlay != null) && (videoToPlay.frame > numFrames)) || Input.anyKeyDown)
 
+        //----
         if (((videoToPlay != null) && vidDone) || Input.anyKeyDown)
         {
             if (isScary)
@@ -86,7 +103,8 @@ public class VideoPlays : MonoBehaviour
             GameManager.Instance.playWind();
             Destroy(videoToPlay);
         }
-        
+        //-----
+
     }
 
     IEnumerator WaitForVidEnd(float time)
