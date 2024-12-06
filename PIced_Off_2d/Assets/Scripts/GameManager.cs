@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public GameObject snowfall;
 
     public AudioSource windLoop;
+    public AudioSource christmasLoop;
+
     //public bool scary = false;
     //public int isScaryInt;
     //public Toggle isScary;
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
         snowfall.SetActive(true);
         menuIsActive = false;
         windLoop.Stop();
+        christmasLoop.Stop();
 
         //PlayerPrefs.GetString("scaryTXT");
         //if(returnScaryStat())
@@ -57,6 +60,7 @@ public class GameManager : MonoBehaviour
         if (ScaryToggle.Instance.myToggle.GetComponent<Toggle>().isOn)
         {
             windLoop.Stop();
+            christmasLoop.Stop();
             //snowfall.SetActive
             scaryDeerVid.SetActive(true);
         }
@@ -124,6 +128,7 @@ public class GameManager : MonoBehaviour
     public void playWind()
     {
         windLoop.Play();
+        christmasLoop.Play();
         //if (!windLoop.isPlaying)
         //{
         //    windLoop.Play();
@@ -132,6 +137,7 @@ public class GameManager : MonoBehaviour
     public void stopWind()
     {
         windLoop.Stop();
+        christmasLoop.Stop();
         //if (windLoop.isPlaying)
         //{
         //    windLoop.Stop();

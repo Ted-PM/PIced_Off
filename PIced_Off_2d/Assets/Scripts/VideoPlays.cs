@@ -18,6 +18,7 @@ public class VideoPlays : MonoBehaviour
     public bool isScary;
     public float playTime;
     bool vidDone = false;
+    bool played = false;
     //public TextMeshProUGUI scaryTXT;
 
     //public int isScary;
@@ -94,13 +95,14 @@ public class VideoPlays : MonoBehaviour
         //if (((videoToPlay != null) && (videoToPlay.frame > numFrames)) || Input.anyKeyDown)
 
         //----
-        if (((videoToPlay != null) && vidDone) || Input.anyKeyDown)
+        if (((videoToPlay != null) && vidDone) || (Input.anyKeyDown && !played))
         {
             if (isScary)
             {
                 GameManager.Instance.viewMenu();
             }
             GameManager.Instance.playWind();
+            played = true;
             Destroy(videoToPlay);
         }
         //-----
